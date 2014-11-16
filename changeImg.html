@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+ <meta charset="UTF-8">
+ <title>imageAdd</title>
+</head>
+<body>	
+	<input type=button value="changeImage" id ="changeButton">
+	<input type=button value="addImage" id ="addButton" onClick="addImage()">
+	<input type=button value="reload" id="reload" onClick="reload()">
+	<input type=button value="upsize" id="upsize" onClick="upsizefunc()">
+	<input type=text value="" id="text">
+	
+
+		<p> <img id="fuck0" src="test0.jpg" width="400" height="300" onClick="doSelect('0')"></p>
+		<input type="hidden" id="fuckhidden0" value=false>
+		<p> <img id="fuck1" src="test1.jpg" width="400" height="300" onClick="doSelect('1')"></p>
+		<input type="hidden" id="fuckhidden1" value=false>
+		<p> <img id="fuck2" src="test2.jpg" width="400" height="300" onClick="doSelect('2')"></p>
+		<input type="hidden" id="fuckhidden2" value=false>
+		<div id="fuck"></div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<script>
+	var idNumber = 3;
+	//初期化関数
+	$(function() {
+
+		//changeImageの処理
+		$("#changeButton").click(function(){
+			//ランダム変数を生成
+			for(var i = 0; i < 3; i++){
+				document.getElementById("fuck" + i).src = "test"+ Math.floor(Math.random()*7) + ".jpg";
+			}
+		});
+
+	var i = 0;
+
+		$("#text").focus(function(){
+			//alert("focus");
+			console.log(i);
+			i++;
+		});
+
+	});
+
+	function doSelect(number){
+		console.log($("#fuckhidden"+number).val());
+		if (number < 3) {
+			if ("false" == ($("#fuckhidden"+number).val())) {
+				console.log($("#fuckhidden"+number).val());
+				$("#fuck"+number).css("border", "3px solid red");
+				$("#fuckhidden"+number).val(true);
+			} else {
+				$("#fuck"+number).css("border", "");
+				$("#fuckhidden"+number).val(false);
+			}
+		} else {
+			if ("false" == ($("#fuckhidden"+number).val())) {
+				$("#fuck"+ number).css("border", "3px solid red");
+				$("#fuckhidden"+number).val(true);
+			} else {
+				$("#fuck"+number).css("border", "");
+				$("#fuckhidden"+number).val(false);
+			}
+
+		}
+
+	}
+
+	function addImage(){
+		var newDiv = $("<p> <img id='fuck" + idNumber + "' src='test" + Math.floor(Math.random()*7) +".jpg' width='400' height='300' onClick=" +"doSelect('" +idNumber+"')"+ "></p>");
+		$("#fuck").append(newDiv);
+		$("#fuck").append("<input type='hidden' id='fuckhidden"+idNumber+"'value=false>");
+
+		idNumber++;
+
+	}
+
+	function reload(){
+		window.location.reload();
+	}
+
+	function upsizefunc(){
+		$("#fuck0").width(500);
+		$("#fuck1").width(500);
+
+	}
+	</script>
+
+
+</body>
+
+</html>
